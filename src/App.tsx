@@ -3,11 +3,12 @@ import AuthLayout from "./_auth/AuthLayout"
 import SignupForm from "./_auth/forms/SignupForm"
 import SigninForm from "./_auth/forms/SigninForm"
 import RootLayout from "./_root/RootLayout"
-import Home from "./_root/pages/Home"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AboutUs, ContactUs, FAQ, Home, MovieOrSerieDetails, Movies, Pricing, PrivacyPolicy, Series, TermsOfUse } from "./_root/pages"
 
 export const App = () => {
+
   return (
     <main>
       <Routes>
@@ -19,7 +20,17 @@ export const App = () => {
 
         {/* private routes */}
         <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Home/>} />
+          <Route path="/movies" element={<Movies/>} />
+          <Route path="/tv-shows"  element={<Series/>} />
+          <Route path="/movie-details/:id"  element={<MovieOrSerieDetails type='movie' />} />
+          <Route path="/serie-details/:id"  element={<MovieOrSerieDetails type='serie'/>} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use" element={<TermsOfUse />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Route>
       </Routes>
       <ToastContainer theme="dark" />

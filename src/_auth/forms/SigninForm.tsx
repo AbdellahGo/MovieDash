@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { loaderIcon, logo } from "../../assets"
+import { logo } from "../../assets"
 import { FaCheck } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import FormButton from "../../components/FormButton";
@@ -7,6 +7,7 @@ import { inputStyles, labelStyles } from "../../classes";
 import { useUserContext } from "../../context/AuthContext";
 import { useSignInAccount } from "../../lib/react-query/queries";
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader";
 
 const SigninForm = () => {
   const navigate = useNavigate()
@@ -62,7 +63,7 @@ const SigninForm = () => {
         <FormButton classes="w-full">
           <span className={`block relative z-[100] text-center`}>
             {isUserLoading ||
-              isCreatingSession ? <img src={loaderIcon} alt="loaderIcon" className="mx-auto animate-spin w-[28px]" /> : 'Sign In'}
+              isCreatingSession ? <Loader/> : 'Sign In'}
           </span>
 
         </FormButton>

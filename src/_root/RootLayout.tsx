@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom"
+import { Footer, NavBar } from "../components"
 
 const RootLayout = () => {
-  return (
-    <div className="w-full md:flex">
 
-      <section >
+  return (
+    <main >
+      <NavBar/>
+      <section>
         <Outlet />
       </section>
-    </div>
+      <Footer/>
+    </main>
   )
 }
 

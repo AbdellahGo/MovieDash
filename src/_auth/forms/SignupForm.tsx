@@ -9,6 +9,7 @@ import { useCreateUserAccount, useSignInAccount } from "../../lib/react-query/qu
 import { INewUser } from "../../types"
 import { useUserContext } from "../../context/AuthContext"
 import { loaderIcon } from "../../assets"
+import Loader from "../../components/Loader"
 
 const SignupForm = () => {
   const navigate = useNavigate()
@@ -91,12 +92,12 @@ const SignupForm = () => {
             {acceptTerms ? <FaCheck className="text-[8px]" /> : ''}
           </button>
           I've read and accept the
-          <Link to='' className="text-primary">terms & conditions*</Link>
+          <Link to='/terms-of-use' className="text-primary">terms & conditions*</Link>
         </div>
         <FormButton classes="lg:w-[50%] w-full mx-auto">
           <span className={`block relative z-[100] text-center`}>
             {isCreatingAccount ||
-              isSingInUser || isUserLoading ? <img src={loaderIcon} alt="loaderIcon" className="mx-auto animate-spin w-[28px]" /> : 'Sing up'}
+              isSingInUser || isUserLoading ? <Loader/> : 'Sing up'}
           </span>
         </FormButton>
       </form>

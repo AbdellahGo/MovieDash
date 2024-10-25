@@ -91,6 +91,7 @@ export default {
         DEFAULT: "400ms",
       },
       colors: {
+        'gray-800': '#343a40',
         'gray-900': '#141314',
         'primary': '#e50914',
         'body-color': '#D1D0CF',
@@ -105,6 +106,7 @@ export default {
         'success-text-emphasis': '#72f1b8',
         'info-text-emphasis': '#66afff',
         'warning-text-emphasis': '#f4d671',
+        'warning-rgb': '#ecba12',
         'danger-text-emphasis': '#989eac',
         'light-text-emphasis': '#f8f9fa',
         'dark-text-emphasis': '#dee2e6',

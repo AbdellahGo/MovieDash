@@ -1,2 +1,7 @@
 export const labelStyles = 'text-16 mb-8 font-medium text-white'
 export const inputStyles = 'transition-all font-normal text-16 text-body-color border-1 border-body-bg bg-gray-900 py-12 px-16'
+export const sectionStyles = 'xl:py-[100px] md:py-50 py-30'
+export const containerStyles = 'max-w-[1400px] mx-auto px-16'
+export const afterSlideStyles = 'after:transition-all after:absolute after:rounded-l-[4px] after:h-full after:w-0 after:left-0 after:top-0 after:bg-[#b70710] hover:after:w-[100%]'
+export const beforeSlideStyles = 'before:transition-all before:absolute before:rounded-r-[4px] before:h-full before:w-0 before:right-0 before:top-0 before:bg-[#b70710] hover:before:w-[100%]'
+export const watchlistFavoriteStyles = 'border-1 border-white hover:border-primary p-[5px] rounded-full  hover:bg-primary transition-colors'

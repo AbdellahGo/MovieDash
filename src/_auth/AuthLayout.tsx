@@ -5,7 +5,7 @@ import { useUserContext } from "../context/AuthContext"
 const AuthLayout = () => {
 const {isAuthenticated} = useUserContext()
   return (
-    <>
+    <main>
       {isAuthenticated ? (
         <Navigate to="/" />
       ) : (
@@ -16,7 +16,7 @@ const {isAuthenticated} = useUserContext()
           </div>
         </section>
       )}
-    </>
+    </main>
   )
 }
 
