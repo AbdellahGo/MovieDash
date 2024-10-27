@@ -14,5 +14,8 @@ export enum QUERY_KEYS {
     GET_TOP_RATED_SERIES = 'getTopRatedSeries',
     GET_STREAMING_TODAY_SERIES = 'getStreamingTodaySeries',
     // ? MOVIE AND SERIE DETAILS KEY
-    GET_MOVIE_OR_SERIES_DETAILS = 'getMovieOrSerieDetails'
+    GET_MOVIE_OR_SERIES_DETAILS = 'getMovieOrSerieDetails',
+    // ? MOVIE AND SERIE Search KEY
+    GET_MOVIES_OR_SERIES_BY_SEARCH = 'getMoviesOrSeriesBySearch'
+
 }

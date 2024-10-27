@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { INewUser } from "../../types"
 import { createUserAccount, signInAccount, signOutAccount } from "../appwrite/api"
 import { QUERY_KEYS } from "./queryKeys"
-import { getLatestMovies, getMovieOrSerieDetails, getMovieOrSeriesGenres, getNowPlayingMovies, getPopularMovies, getPopularSeries, getStreamingTodaySeries, getTopRatedMovies, getTrendingMovies, getUpcomingMovies, getUpcomingSeries } from "../tmdb/api"
+import { getLatestMovies, getMovieOrSerieDetails, getMovieOrSeriesGenres, getMoviesOrSeriesBySearch, getNowPlayingMovies, getPopularMovies, getPopularSeries, getStreamingTodaySeries, getTopRatedMovies, getTrendingMovies, getUpcomingMovies, getUpcomingSeries } from "../tmdb/api"
 // AppWrite queries
 export const useCreateUserAccount = () => {
     return useMutation({
@@ -112,11 +112,19 @@ export const useGetTopRatedSeries = () => {
     })
 }
 
-// ? movie and serie details Api Queries
+// ? movie and serie details Api Querie
 
 export const useGetMovieOrSeriesDetails = (type: 'movie' | 'serie', id: number) => {
     return useQuery({
         queryKey: [QUERY_KEYS.GET_MOVIE_OR_SERIES_DETAILS],
         queryFn: () => getMovieOrSerieDetails(type, id),
+    })
+}
+
+//? Search form movies or series Querie
+export const useGetMoviesOrSeriesBySearch = (page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: number[]) => {
+    return useQuery({
+        queryKey: [QUERY_KEYS.GET_MOVIES_OR_SERIES_BY_SEARCH, searchTerm, page, showType, categories, genresIds],
+        queryFn: () => getMoviesOrSeriesBySearch(page, searchTerm, showType, categories, genresIds),
     })
 }

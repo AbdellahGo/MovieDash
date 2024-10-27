@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GenresType, IMovieBannerType, IMovieCardType, ISeriesBannerType, ISeriesCardType } from "../../types"
+import { GenresType, IMovieBannerType, IMovieCardType, IMovieDetailsType, ISerieDetailsType, ISeriesBannerType, ISeriesCardType } from "../../types"
 
 const BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -110,7 +110,7 @@ export async function getTopRatedSeries(): Promise<ISeriesCardType | undefined> 
 }
 
 //? movie and series details end point
-export async function getMovieOrSerieDetails(type: 'movie' | 'serie', id: number) {
+export async function getMovieOrSerieDetails(type: 'movie' | 'serie', id: number): Promise<(IMovieDetailsType | ISerieDetailsType) | undefined> {
     try {
         return (await axiosInstance.get(`${BASE_URL}/${type === 'movie' ? 'movie' : 'tv'}/${id}?append_to_response=videos,credits`, { headers })).data
     } catch (error) {
@@ -118,4 +118,26 @@ export async function getMovieOrSerieDetails(type: 'movie' | 'serie', id: number
 
     }
 
-} 
+}
+
+
+
+//? Search form movies or series end point
+export async function getMoviesOrSeriesBySearch(page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: number[]): Promise<IMovieCardType | ISeriesCardType | undefined> {
+    try {
+        if (searchTerm.length < 1 && categories.length < 1 && genresIds.length < 1) {
+            return (await axiosInstance.get(`${BASE_URL}/trending/${showType === 'movie' ? 'movie' : 'tv'}/day?page=${page}`, { headers })).data
+        }
+        if (categories.length > 0) {
+            return (await axiosInstance.get(`${BASE_URL}/${showType === 'movie' ? 'movie' : 'tv'}/${categories}?page=${page}`, { headers })).data
+        }
+        if (genresIds.length > 0) {
+            return (await axiosInstance.get(`${BASE_URL}/discover/${showType === 'movie' ? 'movie' : 'tv'}?with_genres=${genresIds.join(',')}&page=${page}`, { headers })).data
+        }
+        if (searchTerm.length > 0) {
+            return (await axiosInstance.get(`${BASE_URL}/search/${showType === 'movie' ? 'movie' : 'tv'}?query=${searchTerm}&page=${page}`, { headers })).data
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

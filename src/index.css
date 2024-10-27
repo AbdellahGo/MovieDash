@@ -6,6 +6,9 @@
 *:not(.home-hero-section) {
   /* outline: 1px dotted red; */
 }
+:root::-webkit-scrollbar {
+  display: none;
+}
 body {
   background-color: black;
   color: white;
@@ -36,6 +39,7 @@ body {
   }
 }
 
+
 .blur-background {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
@@ -59,7 +63,7 @@ footer input.subscribe:focus {
 }
 
 /* movie and tv card styles */
-.card-info-block  {
+.card-info-block {
   width: calc(100%);
   transition: transform 300ms linear, opacity 300ms linear;
   -webkit-transition: transform 300ms linear, opacity 300ms linear;
@@ -84,58 +88,78 @@ footer input.subscribe:focus {
 /* tooltip */
 .favorite span,
 .watchlist span {
-  transition: opacity .3s linear .3s;
-  -webkit-transition: opacity .3s linear .3s;
-  -moz-transition: opacity .3s linear .3s;
-  -ms-transition: opacity .3s linear .3s;
-  -o-transition: opacity .3s linear .3s;
+  transition: opacity 0.3s linear 0.3s;
+  -webkit-transition: opacity 0.3s linear 0.3s;
+  -moz-transition: opacity 0.3s linear 0.3s;
+  -ms-transition: opacity 0.3s linear 0.3s;
+  -o-transition: opacity 0.3s linear 0.3s;
 }
 .favorite:hover span,
 .watchlist:hover span {
   opacity: 1;
 }
 
-
 .genres-container::-webkit-scrollbar {
-display: none;
+  display: none;
 }
-
 
 /*? swiper-slide animations */
 .swiper-slide-active .RightAnimate {
-  animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .2s both;
-  -webkit-animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .2s both;
+  animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s both;
+  -webkit-animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s
+    both;
 }
 .swiper-slide-active .RightAnimate-two {
-  animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .4s both;
-  -webkit-animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .4s both;
+  animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.4s both;
+  -webkit-animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.4s
+    both;
 }
 .swiper-slide-active .RightAnimate-three {
-  animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .6s both;
-  -webkit-animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .6s both;
+  animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.6s both;
+  -webkit-animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.6s
+    both;
 }
 .swiper-slide-active .RightAnimate-four {
-  -webkit-animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .8s both;
-  animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .8s both;
+  -webkit-animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.8s
+    both;
+  animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.8s both;
 }
 .swiper-slide-active .RightAnimate-five {
-  -webkit-animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) 1s both;
-  animation: RightAnimate .6s cubic-bezier(0.39, 0.575, 0.565, 1) .8s both;
+  -webkit-animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 1s
+    both;
+  animation: RightAnimate 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 0.8s both;
 }
-
 
 @keyframes RightAnimate {
   0% {
     -webkit-transform: translateX(50px);
     transform: translateX(50px);
     opacity: 0;
-}
-100% {
+  }
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     opacity: 1;
+  }
 }
-}
-
 
 /*  */
+
+.movie-serie-details-section .cast-list::-webkit-scrollbar {
+  height: 5px;
+}
+.movie-serie-details-section .cast-list::-webkit-scrollbar-thumb {
+  background-color: rgb(46, 46, 46);
+  
+}
+
+
+/* menu-list */
+.search-for-result .menu-list::-webkit-scrollbar {
+  width: 5px;
+} 
+
+.search-for-result .menu-list::-webkit-scrollbar-thumb {
+  background-color: rgb(46, 46, 46);
+  
+}

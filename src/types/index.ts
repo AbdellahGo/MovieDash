@@ -75,3 +75,73 @@ export type ISeriesCardType = {
         poster_path: string
     }[]
 }
+
+
+//? Movie and Serie Details Type
+export type IMovieDetailsType = {
+            id: number,
+            original_title: string,
+            genres: {id: number, name: string}[],
+            homepage: string,
+            origin_country: string[],
+            spoken_languages: {english_name: string}[],
+            overview: string,
+            poster_path: string,
+            release_date: string,
+            runtime: number,
+            vote_average: number,
+            videos: {
+                results: {key: string}[]
+            },
+            credits: {
+                cast: {
+                    id: number,
+                    name: string,
+                    profile_path: string
+                    character: string
+                    credit_id: string
+                }[]
+                crew: {
+                    id: number,
+                    name: string,
+                    profile_path: string,
+                    credit_id: string,
+                    job: string
+                }[]
+            },
+}
+
+export type ISerieDetailsType = {
+    id: number,
+    name: string,
+    genres: {id: number, name: string}[],
+    homepage: string,
+    origin_country: string[],
+    spoken_languages: {english_name: string}[],
+    overview: string,
+    poster_path: string,
+    first_air_date: string,
+    episode_run_time: number[],
+    vote_average: number,
+    number_of_episodes: number,
+    number_of_seasons: number,
+    videos: {
+        results: {key: string}[]
+    },
+    credits: {
+        cast: {
+            id: number,
+            name: string,
+            profile_path: string
+            character: string
+            credit_id: string
+        }[]
+        crew: {
+            id: number,
+            name: string,
+            profile_path: string,
+            credit_id: string,
+            job: string
+        }[]
+    },
+}

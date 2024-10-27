@@ -8,7 +8,6 @@ import { toast } from "react-toastify"
 import { useCreateUserAccount, useSignInAccount } from "../../lib/react-query/queries"
 import { INewUser } from "../../types"
 import { useUserContext } from "../../context/AuthContext"
-import { loaderIcon } from "../../assets"
 import Loader from "../../components/Loader"
 
 const SignupForm = () => {

@@ -11,6 +11,7 @@ export {default as seriesAll} from './seriesall.png'
 export {default as streamVip} from './streamvip.png'
 export {default as texure} from './texure.webp'
 export {default as imdbLogo} from './imdb-logo.svg'
+export {default as noImage} from './no-image.png'
 
 
 

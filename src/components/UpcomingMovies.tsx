@@ -11,7 +11,7 @@ const UpcomingMovies = () => {
     return (
         <div className="upcoming-movies-section" id="upcoming">
             <div className="xl:px-[100px] px-[16px]">
-                <SectionHeader sectionName="Upcoming Movies" link="/upcoming-movies" />
+                <SectionHeader sectionName="Upcoming Movies" link="/search/upcoming-movies" />
                 <HorizontalSwiper spaceBetween={15} swiperStyles="bg-black flex" nextClasse='custom-next-upcoming-movies' prevClasse='custom-prev-upcoming-movies'>
                     {
                         upcomingMovies?.results?.slice(0, 20).map(({ id, title, release_date, poster_path, vote_average }) => (

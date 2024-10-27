@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { afterSlideStyles, beforeSlideStyles, watchlistFavoriteStyles } from "../classes"
 import { IoMdArrowDropdown } from "react-icons/io";
 import StarRating from "./StarRating";
+import { noImage } from "../assets";
 type Props = {
     type: 'movie' | 'serie',
     image: string,
@@ -18,9 +19,9 @@ const TvMovieCard = ({ type, image, id, releaseDate, title, rate }: Props) => {
     return (
         <div className="rounded-[4px] p-[15px] bg-gray-900">
 
-            <div className="hover-card relative overflow-hidden rounded-[4px]">
-                <div className="img-box relative">
-                    <img src={`https://media.themoviedb.org/t/p/original${image}`} alt={type === 'movie' ? 'movie image' : 'serie image'} className="transition-all w-full object-cover" />
+            <div className="hover-card relative overflow-hidden h-full rounded-[4px]">
+                <div className="img-box relative h-full">
+                    <img src={image ? `https://media.themoviedb.org/t/p/original${image}` : noImage} alt={type === 'movie' ? 'movie image' : 'serie image'} className="h-full transition-all w-full object-cover" />
                 </div>
                 <div className="card-info-block p-[15px] flex flex-col justify-end absolute  opacity-0 top-full bg-[#00000088] h-full ">
                     <div className="flex items-center justify-between w-full">
@@ -45,7 +46,7 @@ const TvMovieCard = ({ type, image, id, releaseDate, title, rate }: Props) => {
                         </button>
                     </div>
                     <div className="pt-[15px] mt-[15px] border-t-1 border-body-color">
-                        <Link to={`${type}-details/${id}`}>
+                        <Link to={`/${type}-details/${id}`}>
                             <h5 className="capitalize text-white hover:text-primary transition-colors xl:text-[25px] md:text-[21px] text-16  font-semibold">{title}</h5>
                         </Link>
                         <span className="text-body-color text-16 font-medium">{releaseDate}</span>

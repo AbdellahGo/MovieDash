@@ -1,10 +1,9 @@
 import { imdbLogo, texure } from "../assets"
-import { FaPlus, FaRegHeart } from "react-icons/fa6";
 import { IoPlayOutline } from "react-icons/io5";
-import { afterSlideStyles, beforeSlideStyles } from "../classes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import Genres from "./Genres";
+import WatchlistFavoriteButtons from "./WatchlistFavoriteButtons";
 
 
 type Props = {
@@ -19,8 +18,7 @@ type Props = {
 }
 
 const BannerSlide = ({ type, id, releaseDate, title, description, rate, genreIds, image }: Props) => {
-  const watchlistFavoriteStyles = `relative text-white border-[2px] p-8 text-16 rounded-[6px] overflow-hidden border-body-color hover:border-primary transition-colors ${afterSlideStyles} ${beforeSlideStyles}`
-
+  const navigate = useNavigate()
   return (
     <>
       <div className="absolute top-0 left-0 w-full h-full">
@@ -56,16 +54,12 @@ const BannerSlide = ({ type, id, releaseDate, title, description, rate, genreIds
               {description}
             </p>
             <div className="flex items-center gap-8 RightAnimate-four flex-wrap">
-              <button className={`${watchlistFavoriteStyles}`}>
-                <span className="flex items-center gap-[8px] relative z-10 ">Add to Favorite <FaRegHeart /></span>
-              </button>
-              <button className={`${watchlistFavoriteStyles}`}>
-                <span className="flex items-center gap-[8px] relative z-10">Add to Watchlist <FaPlus /></span>
-              </button>
+              <WatchlistFavoriteButtons isWatchTrailer={false} />
             </div>
           </div>
           <div className="xl::w-5/12 w-full">
-            <button className="group flex items-center w-full xl:justify-center gap-18 RightAnimate-five">
+            <button className="group flex items-center w-full xl:justify-center gap-18 RightAnimate-five"
+            onClick={() => navigate(`${type}-details/${id}#watch-trailer`)}>
               <span className="group-hover:border-primary transition-colors flex items-center justify-center xl:w-80 md:w-60 w-50 xl:h-80 md:h-60 h-50 md:border-[4px] border-[3px] xl:text-50 md:text-40 text-30 rounded-full">
                 <IoPlayOutline className="group-hover:text-primary transition-colors" />
               </span>
