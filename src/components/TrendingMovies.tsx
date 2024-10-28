@@ -10,7 +10,7 @@ const TrendingMovies = () => {
     return (
         <div className="treding-movies-section" id="trending">
             <div className="xl:px-[100px] px-[16px]">
-                <SectionHeader sectionName="Treding Movies" link="/treding-movies" />
+                <SectionHeader sectionName="Treding Movies" link="/search?show=movie" />
                 <HorizontalSwiper spaceBetween={15} swiperStyles="bg-black flex" nextClasse='custom-next-treding-movies' prevClasse='custom-prev-treding-movies'>
                     {
                         TreandingMovies?.results?.slice(0, 20).map(({ id, title, release_date, poster_path, vote_average }) => (

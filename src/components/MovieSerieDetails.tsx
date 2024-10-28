@@ -108,11 +108,11 @@ const MovieSerieDetails = ({ homepage, runTime, title, type, numberOfEpisodes, n
                                 <>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <MdOutlineLocalMovies /> Seasons:
-                                        <span className="text-16 font-bold text-primary">{numberOfSeasons}</span>
+                                        <span className="text-16 font-bold text-primary">{numberOfSeasons ||''}</span>
                                     </h4>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <BiMoviePlay /> Episodes:
-                                        <span className="text-16 font-bold text-primary">{numberOfEpisodes}</span>
+                                        <span className="text-16 font-bold text-primary">{numberOfEpisodes || ''}</span>
                                     </h4>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <MdOutlineTimer />Run Time:

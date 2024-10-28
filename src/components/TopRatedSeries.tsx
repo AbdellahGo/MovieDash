@@ -9,7 +9,7 @@ const TopRatedSeries = () => {
     return (
         <div className="top-rated-series-section">
             <div className="xl:px-[100px] px-[16px]">
-                <SectionHeader sectionName="Top Rated Series" link="/top-rated-series" />
+                <SectionHeader sectionName="Top Rated Series" link="/search?show=serie&category=top_rated" />
                 <HorizontalSwiper spaceBetween={15} swiperStyles="bg-black flex" nextClasse='custom-next-top-rated-series' prevClasse='custom-prev-top-rated-series'>
                     {
                         TopRatedSeries?.results?.slice(0, 20).map(({ id, name, first_air_date, poster_path, vote_average }) => (

@@ -123,18 +123,18 @@ export async function getMovieOrSerieDetails(type: 'movie' | 'serie', id: number
 
 
 //? Search form movies or series end point
-export async function getMoviesOrSeriesBySearch(page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: number[]): Promise<IMovieCardType | ISeriesCardType | undefined> {
+export async function getMoviesOrSeriesBySearch(page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: string): Promise<IMovieCardType | ISeriesCardType | undefined> {
     try {
-        if (searchTerm.length < 1 && categories.length < 1 && genresIds.length < 1) {
+        if (!searchTerm && !categories && !genresIds) {
             return (await axiosInstance.get(`${BASE_URL}/trending/${showType === 'movie' ? 'movie' : 'tv'}/day?page=${page}`, { headers })).data
         }
-        if (categories.length > 0) {
+        if (categories?.length > 0) {
             return (await axiosInstance.get(`${BASE_URL}/${showType === 'movie' ? 'movie' : 'tv'}/${categories}?page=${page}`, { headers })).data
         }
-        if (genresIds.length > 0) {
-            return (await axiosInstance.get(`${BASE_URL}/discover/${showType === 'movie' ? 'movie' : 'tv'}?with_genres=${genresIds.join(',')}&page=${page}`, { headers })).data
+        if (genresIds?.length > 0) {
+            return (await axiosInstance.get(`${BASE_URL}/discover/${showType === 'movie' ? 'movie' : 'tv'}?with_genres=${genresIds}&page=${page}`, { headers })).data
         }
-        if (searchTerm.length > 0) {
+        if (searchTerm?.length > 0) {
             return (await axiosInstance.get(`${BASE_URL}/search/${showType === 'movie' ? 'movie' : 'tv'}?query=${searchTerm}&page=${page}`, { headers })).data
         }
     } catch (error) {

@@ -9,7 +9,7 @@ const TrendingSeries = () => {
     return (
         <div className="trending-series-section">
             <div className="xl:px-[100px] px-[16px]">
-                <SectionHeader sectionName="Trending Series" link="/trending-series" />
+                <SectionHeader sectionName="Trending Series" link="/search?show=serie" />
                 <HorizontalSwiper spaceBetween={15} swiperStyles="bg-black flex" nextClasse='custom-next-trending-series' prevClasse='custom-prev-trending-series'>
                     {
                         TrendingSeries?.results?.slice(0, 20).map(({ id, name, first_air_date, poster_path, vote_average }) => (

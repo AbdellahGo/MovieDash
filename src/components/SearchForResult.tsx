@@ -1,7 +1,7 @@
 import { Button, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup } from "@chakra-ui/react";
-import { Dispatch, FormEvent, SetStateAction, useRef } from "react";
+import { FormEvent, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { afterSlideStyles, beforeSlideStyles } from "../classes";
 import { RxReset } from "react-icons/rx";
 
@@ -54,33 +54,23 @@ const GenresValues = [
 
 
 type Props = {
-    showType: 'movie' | 'serie'
-    setShowType: Dispatch<SetStateAction<"movie" | "serie">>,
-    categories: string,
     handleSelectCategory: (value: string) => void
-    setCategories: Dispatch<SetStateAction<string>>,
-    setGenresIds: Dispatch<SetStateAction<number[]>>,
     handleSelectGenres: (value: number) => void
-    genresIds: number[]
 }
-const SearchForResult = ({ genresIds, setGenresIds, handleSelectGenres, setShowType, showType, categories, setCategories, handleSelectCategory }: Props) => {
-    const buttonStyles = 'capitalize border-1 py-12 px-16 rounded-[8px] border-border-color bg-gray-900 hover:bg-black hover:text-white transition-colors text-body-color'
+const SearchForResult = ({ handleSelectGenres, handleSelectCategory }: Props) => {
+    const [searchParams, setSearchParams] = useSearchParams()
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const navigate = useNavigate()
+    const buttonStyles = 'capitalize border-1 py-12 px-16 rounded-[8px] border-border-color bg-gray-900 hover:bg-black hover:text-white transition-colors text-body-color'
 
     const handleResetFilters = () => {
-        setGenresIds([])
-        setCategories('')
-        setShowType('movie')
+        setSearchParams({show: 'movie'}) // reset Search Params
         window.location.reload()
     }
     const handleSubmitForm = (e: FormEvent) => {
         e.preventDefault()
         const inputValue = inputRef.current?.value
         if (inputValue) {
-            setCategories('')
-            setGenresIds([])
-            navigate(`/search#${inputValue}`)
+            setSearchParams({ query: inputValue })
             inputRef.current!.value = ''
         }
     }
@@ -98,13 +88,13 @@ const SearchForResult = ({ genresIds, setGenresIds, handleSelectGenres, setShowT
                     <div className="flex items-center gap-20">
                         <Menu closeOnSelect={false}>
                             <MenuButton as={Button} className={buttonStyles}>
-                                {showType === 'movie' ? 'Movies' : 'Tv Series'}
+                                {searchParams.get('show') === 'movie' ? 'Movies' : 'Tv Series'}
                             </MenuButton>
                             <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
-                                <MenuOptionGroup defaultValue={showType} type='radio'>
+                                <MenuOptionGroup defaultValue={searchParams.get('show')!} type='radio'>
                                     {showTypeValues.map(({ value, label }) => (
                                         <MenuItemOption value={value} key={value}
-                                            onClick={() => setShowType(value)}>{label}</MenuItemOption>
+                                            onClick={() => setSearchParams({...Object.fromEntries(searchParams), show:value})}>{label}</MenuItemOption>
                                     ))}
                                 </MenuOptionGroup>
                             </MenuList>
@@ -114,7 +104,7 @@ const SearchForResult = ({ genresIds, setGenresIds, handleSelectGenres, setShowT
                                 Categories
                             </MenuButton>
                             <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
-                                <MenuOptionGroup defaultValue={categories} type='radio'>
+                                <MenuOptionGroup defaultValue={searchParams.get('category')!} type='radio'>
                                     {categoriesValues.map(({ value, label }) => (
                                         <MenuItemOption value={value} key={value}
                                             onClick={() => handleSelectCategory(value)}>{label}</MenuItemOption>
@@ -130,7 +120,10 @@ const SearchForResult = ({ genresIds, setGenresIds, handleSelectGenres, setShowT
                                 <MenuOptionGroup type='checkbox'>
                                     {GenresValues.map(({ value, label }) => (
                                         <div key={value}>
-                                            <MenuItemOption isChecked={genresIds.includes(value)} value={String(value)}  onClick={() => handleSelectGenres(value)}>
+                                            <MenuItemOption
+                                                isChecked={searchParams.get('genres')?.split(',').includes(String(value))}
+                                                value={String(value)}
+                                                onClick={() => handleSelectGenres(value)}>
                                                 {label}
                                             </MenuItemOption>
                                         </div>
@@ -139,8 +132,8 @@ const SearchForResult = ({ genresIds, setGenresIds, handleSelectGenres, setShowT
                             </MenuList>
                         </Menu>
                         <button className={` ${buttonStyles} relative  overflow-hidden hover:border-primary transition-colors ${afterSlideStyles} ${beforeSlideStyles}`}
-                        onClick={handleResetFilters}>
-                            <span className={`flex items-center gap-[8px] relative z-10`}>Reset <RxReset/> </span>
+                            onClick={handleResetFilters}>
+                            <span className={`flex items-center gap-[8px] relative z-10`}>Reset <RxReset /> </span>
                         </button>
                     </div>
                 </div>

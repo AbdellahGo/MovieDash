@@ -122,7 +122,7 @@ export const useGetMovieOrSeriesDetails = (type: 'movie' | 'serie', id: number) 
 }
 
 //? Search form movies or series Querie
-export const useGetMoviesOrSeriesBySearch = (page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: number[]) => {
+export const useGetMoviesOrSeriesBySearch = (page: number, searchTerm: string, showType: 'movie' | 'serie', categories: string, genresIds: string) => {
     return useQuery({
         queryKey: [QUERY_KEYS.GET_MOVIES_OR_SERIES_BY_SEARCH, searchTerm, page, showType, categories, genresIds],
         queryFn: () => getMoviesOrSeriesBySearch(page, searchTerm, showType, categories, genresIds),

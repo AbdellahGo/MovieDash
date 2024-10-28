@@ -22,7 +22,7 @@ const MovieOrSerieDetails = ({ type }: { type: 'movie' | 'serie' }) => {
                 description={showDetails!.overview}
                 videoKey={showDetails!.videos?.results[0]?.key} />
             <MovieSerieDetails
-            episodeRunTime = {type === 'serie' ? (showDetails as ISerieDetailsType)!.episode_run_time : undefined}
+            episodeRunTime = {type === 'serie' ? (showDetails as ISerieDetailsType)!.episode_run_time : []}
             numberOfEpisodes={type === 'serie' ? (showDetails as ISerieDetailsType)!.number_of_episodes : undefined}
             numberOfSeasons={type === 'serie' ? (showDetails as ISerieDetailsType)!.number_of_seasons : undefined}
                 type={type}

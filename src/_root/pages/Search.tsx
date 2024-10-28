@@ -2,36 +2,40 @@ import { useEffect, useState } from "react"
 import { Paginate, SearchForResult, SearchResultGrid } from "../../components"
 import { useGetMoviesOrSeriesBySearch } from "../../lib/react-query/queries"
 import { toast } from "react-toastify"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 
 const Search = () => {
-    const navigate = useNavigate()
-    const [showType, setShowType] = useState<'movie' | 'serie'>('movie')
-    const [categories, setCategories] = useState<string>('')
-    const [genresIds, setGenresIds] = useState<number[]>([])
     const [pagesList, setPagesList] = useState<number[]>([1])
     const [page, setPage] = useState<number>(1)
-    const { hash } = useLocation()
-    const { data: searchResult, isLoading } = useGetMoviesOrSeriesBySearch(page, hash?.split('#').join(''), showType, categories, genresIds)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { data: searchResult, isLoading } = useGetMoviesOrSeriesBySearch(page, searchParams.get('query')!, (searchParams.get('show')! as 'movie' | 'serie'), searchParams.get('category')!, searchParams.get('genres')!)
 
 
 
+    //? Filter
     const handleSelectGenres = (value: number) => {
-        if (genresIds.includes(value)) {
-            setGenresIds(genresIds.filter((item) => item !== value))
-        } else {
-            setGenresIds((prev: number[]) => [...prev, value])
-        }
-        setCategories('')
-        navigate(`/search`)
-    }
-    const handleSelectCategory = (value: string) => {
-        setCategories(value)
-        setGenresIds([])
-        navigate(`/search`)
-    }
-    
+        const currentGenres = searchParams.get("genres")?.split(",") || [];
+        const valueStr = String(value);
 
+        const newGenres = currentGenres.includes(valueStr)
+            ? currentGenres.filter((genreId) => genreId !== valueStr)
+            : [...currentGenres, valueStr];
+
+        //? Set or remove the `genres` parameter based on whether `newGenres` has items
+        if (newGenres.length > 0) {
+            setSearchParams({ show: searchParams.get('show')!, genres: newGenres.join(",") });
+        } else {
+            searchParams.delete("genres");
+            setSearchParams(searchParams);
+        }
+    };
+
+    const handleSelectCategory = (value: string) => {
+        setSearchParams({ show: searchParams.get('show')!, category: value })
+    }
+
+
+    //? Paginate
     const handleClickOnPage = (pageNumbar: number) => {
         if (pageNumbar === page) {
             toast.warn('You Click On The Same Page.');
@@ -39,6 +43,7 @@ const Search = () => {
         setPage(pageNumbar)
         setPagesList(prev => [...prev].slice(0, pageNumbar))
     }
+
     const handlePrev = () => {
         if (page === 1) {
             setPage(1)
@@ -57,27 +62,20 @@ const Search = () => {
             setPagesList(prev => [...prev, page + 1])
         }
     }
-    useEffect(() => {
-        if (hash) {
-            setCategories('')
-            setGenresIds([])
-        }
-    }, [hash])
 
     useEffect(() => {
+        setSearchParams({ ...Object.fromEntries(searchParams), show: !searchParams.get('show') ? 'movie' : searchParams.get('show')! })
         window.scrollTo({ top: 0, behavior: 'smooth' })
-    })
+    }, [searchParams])
 
     if (isLoading) return '...loading'
     return (
         <div>
             <SearchForResult
-                setGenresIds={setGenresIds} genresIds={genresIds}
-                handleSelectGenres={handleSelectGenres} categories={categories}
-                handleSelectCategory={handleSelectCategory} setCategories={setCategories}
-                showType={showType} setShowType={setShowType}
+                handleSelectGenres={handleSelectGenres}
+                handleSelectCategory={handleSelectCategory}
             />
-            <SearchResultGrid searchTerm={hash?.split('#').join('')} type={showType} result={searchResult} />
+            <SearchResultGrid searchTerm={searchParams.get('query')!} type={(searchParams.get('show')! as 'movie' | 'serie')} result={searchResult} />
             <Paginate handleClickOnPage={handleClickOnPage} pagesList={pagesList} handleNext={handleNext} handlePrev={handlePrev} />
         </div>
     )

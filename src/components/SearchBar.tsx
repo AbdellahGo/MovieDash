@@ -11,7 +11,7 @@ const SearchBar = ({ showButton }: { showButton?: boolean }) => {
     const inputValue = inputRef.current?.value
     setToggleSearchBar(prev => !prev)
     if (inputValue) {
-      navigate(`/search#${inputValue}`)
+      navigate(`/search?query=${inputValue}`)
       inputRef.current!.value = ''
     }
   }
