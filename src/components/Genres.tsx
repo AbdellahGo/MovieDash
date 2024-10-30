@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetMovieOrSiresGenres } from "../lib/react-query/queries"
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     genreIds: number[],
@@ -10,6 +11,7 @@ type Props = {
 }
 
 const Genres = ({ genreIds, type, genresBoxStyles, genreStyles }: Props) => {
+    const navigate = useNavigate()
     const { data: genres } = useGetMovieOrSiresGenres(type)
     const [finalGenres, setFinalGenres] = useState<string[]>([]);
 
@@ -27,6 +29,10 @@ const Genres = ({ genreIds, type, genresBoxStyles, genreStyles }: Props) => {
         setFinalGenres(genresToAdd);
     };
 
+    const handleClickOnGenre = (index: number) => {
+        navigate(`/search?show=${type}&genres=${genreIds[index]}`)
+    }
+
     useEffect(() => {
         if (genres) {
             getGenres()
@@ -35,8 +41,10 @@ const Genres = ({ genreIds, type, genresBoxStyles, genreStyles }: Props) => {
     return (
         <ul className={genresBoxStyles}>
             {finalGenres.map((item: string, i) => (
-                <li key={i} className={genreStyles}>
-                    {item}
+                <li key={i}>
+                    <button className={genreStyles} onClick={() => handleClickOnGenre(i)}>
+                        {item}
+                    </button>
                 </li>
             ))}
         </ul>

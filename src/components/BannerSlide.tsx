@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import Genres from "./Genres";
 import WatchlistFavoriteButtons from "./WatchlistFavoriteButtons";
+import { useUserContext } from "../context/AuthContext";
 
 
 type Props = {
@@ -15,10 +16,23 @@ type Props = {
   genreIds: number[],
   image: string
   type: 'movie' | 'serie'
+
 }
 
 const BannerSlide = ({ type, id, releaseDate, title, description, rate, genreIds, image }: Props) => {
   const navigate = useNavigate()
+  const { user } = useUserContext()
+  const showDetails = {
+    userId: user.id,
+    id,
+    type,
+    title,
+    image: `https://media.themoviedb.org/t/p/original${image}`,
+    rate,
+    releaseDate,
+  }
+
+
   return (
     <>
       <div className="absolute top-0 left-0 w-full h-full">
@@ -46,7 +60,7 @@ const BannerSlide = ({ type, id, releaseDate, title, description, rate, genreIds
               <div className="flex items-center Msm:flex-wrap gap-y-16">
                 <Genres genreIds={genreIds} type={type}
                   genresBoxStyles='font-medium overflow-x-auto text-16 md:px-16 Mmd:pr-16 flex items-center gap-[10px] genres-container'
-                  genreStyles='rounded-[4px] uppercase text-white p-8 bg-secondary-bg min-w-max' />
+                  genreStyles='rounded-[4px] uppercase text-white p-8 bg-secondary-bg hover:bg-[#5d6063] transition-colors min-w-max' />
                 <p className="text-14 font-semibold text-primary min-w-max ">Release Date: <span className="text-body-color">{releaseDate}</span></p>
               </div>
             </div>
@@ -54,12 +68,12 @@ const BannerSlide = ({ type, id, releaseDate, title, description, rate, genreIds
               {description}
             </p>
             <div className="flex items-center gap-8 RightAnimate-four flex-wrap">
-              <WatchlistFavoriteButtons isWatchTrailer={false} />
+              <WatchlistFavoriteButtons isWatchTrailer={false} showDetails={showDetails} />
             </div>
           </div>
           <div className="xl::w-5/12 w-full">
             <button className="group flex items-center w-full xl:justify-center gap-18 RightAnimate-five"
-            onClick={() => navigate(`${type}-details/${id}#watch-trailer`)}>
+              onClick={() => navigate(`${type}-details/${id}#watch-trailer`)}>
               <span className="group-hover:border-primary transition-colors flex items-center justify-center xl:w-80 md:w-60 w-50 xl:h-80 md:h-60 h-50 md:border-[4px] border-[3px] xl:text-50 md:text-40 text-30 rounded-full">
                 <IoPlayOutline className="group-hover:text-primary transition-colors" />
               </span>

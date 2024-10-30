@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { texure } from "../assets"
 import WatchlistFavoriteButtons from "./WatchlistFavoriteButtons";
 import { useEffect, useState } from "react";
+import { useUserContext } from "../context/AuthContext";
 
 type Props = {
     id: number
@@ -10,9 +11,21 @@ type Props = {
     title: string,
     description: string,
     videoKey: string,
+    rate: number,
+    releaseDate: string,
 }
 
-const MovieSerieBannerDetails = ({ id, type, image, title, description, videoKey }: Props) => {
+const MovieSerieBannerDetails = ({ id, type, image, title, description, videoKey, rate, releaseDate }: Props) => {
+    const { user } = useUserContext()
+    const showDetails = {
+        userId: user.id,
+        id,
+        type,
+        title,
+        image: `https://media.themoviedb.org/t/p/original${image}`,
+        rate,
+        releaseDate,
+    }
     const navigate = useNavigate()
     const { hash } = useLocation()
     const [open, setOpen] = useState(false);
@@ -43,7 +56,7 @@ const MovieSerieBannerDetails = ({ id, type, image, title, description, videoKey
                         {description}
                     </p>
                     <div className="my-20 flex items-center flex-wrap justify-center gap-16">
-                        <WatchlistFavoriteButtons isWatchTrailer openModal={handleOpen} />
+                        <WatchlistFavoriteButtons isWatchTrailer openModal={handleOpen} showDetails={showDetails} />
                     </div>
                 </div>
             </div>

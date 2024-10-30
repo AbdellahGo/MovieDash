@@ -1,9 +1,10 @@
 import { FaPlay, FaPlus, FaRegHeart } from "react-icons/fa6"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { afterSlideStyles, beforeSlideStyles, watchlistFavoriteStyles } from "../classes"
 import { IoMdArrowDropdown } from "react-icons/io";
 import StarRating from "./StarRating";
 import { noImage } from "../assets";
+import { useUserContext } from "../context/AuthContext";
 type Props = {
     type: 'movie' | 'serie',
     image: string,
@@ -15,7 +16,22 @@ type Props = {
 
 
 const TvMovieCard = ({ type, image, id, releaseDate, title, rate }: Props) => {
-
+    const navigate = useNavigate()
+    const {
+        allFavoritesIds,
+        allWatchlistIds,
+        user, isRemovedFromWatchlist, isAddedToWatchlist, handleAddOrRemoveShowInWatchlist,
+        handleAddOrRemoveShowInFavorite, isAddedToFavorite, isRemovedFromFavorite
+    } = useUserContext()
+    const showDetails = {
+        userId: user.id,
+        id,
+        type,
+        title,
+        image: `https://media.themoviedb.org/t/p/original${image}`,
+        rate,
+        releaseDate,
+    }
     return (
         <div className="rounded-[4px] p-[15px] bg-gray-900">
 
@@ -26,14 +42,16 @@ const TvMovieCard = ({ type, image, id, releaseDate, title, rate }: Props) => {
                 <div className="card-info-block p-[15px] flex flex-col justify-end absolute  opacity-0 top-full bg-[#00000088] h-full ">
                     <div className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-8 relative">
-                            <button className={`favorite ${watchlistFavoriteStyles} relative`}>
+                            <button className={`favorite ${(allFavoritesIds as number[]).includes(id) ? 'bg-primary border-none' : ''} ${watchlistFavoriteStyles} relative`} disabled={isAddedToFavorite || isRemovedFromFavorite}
+                                onClick={() => handleAddOrRemoveShowInFavorite(showDetails)}>
                                 <span className="opacity-0 text-12 absolute bg-gray-900 ml-[10px] mb-[10px] py-4 px-8 rounded-[4px] bottom-full left-1/2 -translate-x-1/2 ">
                                     Add to Favorite
                                     <IoMdArrowDropdown className="bottom-[-11.6px] text-gray-900 absolute text-20" />
                                 </span>
                                 <FaRegHeart />
                             </button>
-                            <button className={`watchlist ${watchlistFavoriteStyles} relative`}>
+                            <button className={`watchlist ${(allWatchlistIds as number[]).includes(id) ? 'bg-primary border-none' : ''} ${watchlistFavoriteStyles} relative`} disabled={isRemovedFromWatchlist || isAddedToWatchlist}
+                                onClick={() => handleAddOrRemoveShowInWatchlist(showDetails)}>
                                 <span className="opacity-0 text-12 absolute bg-gray-900  mb-[10px] py-4 px-8 rounded-[4px] bottom-full left-1/2 -translate-x-1/2 ">
                                     Add to Watchlist
                                     <IoMdArrowDropdown className="left-[23px] bottom-[-11.6px] text-gray-900 absolute text-20" />
@@ -41,7 +59,8 @@ const TvMovieCard = ({ type, image, id, releaseDate, title, rate }: Props) => {
                                 <FaPlus />
                             </button>
                         </div>
-                        <button className={`bg-primary w-[40px] border-1 border-primary relative overflow-hidden rounded-full h-[40px] ${afterSlideStyles} ${beforeSlideStyles}`}>
+                        <button className={`bg-primary w-[40px] border-1 border-primary relative overflow-hidden rounded-full h-[40px] ${afterSlideStyles} ${beforeSlideStyles}`}
+                            onClick={() => navigate(`${type}-details/${id}#watch-trailer`)}>
                             <FaPlay className="mx-auto relative z-10" />
                         </button>
                     </div>

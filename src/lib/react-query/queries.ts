@@ -1,9 +1,11 @@
-import { useMutation, useQuery } from "@tanstack/react-query"
-import { INewUser } from "../../types"
-import { createUserAccount, signInAccount, signOutAccount } from "../appwrite/api"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { INewUser, IShowTypes } from "../../types"
+import { addShowToFavorite, addShowToWatchlist, createUserAccount, getFavorite, getWatchlist, removeShowFromFavorite, removeShowFromWatchlist, signInAccount, signOutAccount } from "../appwrite/api"
 import { QUERY_KEYS } from "./queryKeys"
 import { getLatestMovies, getMovieOrSerieDetails, getMovieOrSeriesGenres, getMoviesOrSeriesBySearch, getNowPlayingMovies, getPopularMovies, getPopularSeries, getStreamingTodaySeries, getTopRatedMovies, getTrendingMovies, getUpcomingMovies, getUpcomingSeries } from "../tmdb/api"
-// AppWrite queries
+
+//? AppWrite queries
+//? account queries
 export const useCreateUserAccount = () => {
     return useMutation({
         mutationFn: (user: INewUser) => createUserAccount(user)
@@ -21,6 +23,71 @@ export const useSignOutAccount = () => {
         mutationFn: signOutAccount,
     });
 };
+//? add show to watchlist and favorite query
+export const useAddShowtoWatchlist = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (show: IShowTypes) => addShowToWatchlist(show),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+             queryKey: [QUERY_KEYS.WATCHLIST],
+            });
+        }
+    })
+}
+export const useAddShowtoFavorite = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (show: IShowTypes) => addShowToFavorite(show),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+             queryKey: [QUERY_KEYS.FAVORITE],
+            });
+        }
+    })
+}
+
+//? get watchlist and favorite query
+export const useGetWatchlist = (userId: string) => {
+    return useQuery({
+        queryKey: [QUERY_KEYS.WATCHLIST, userId],
+        queryFn: () => getWatchlist(userId),
+        enabled: !!userId,
+    })
+}
+export const useGetFavorite = (userId: string) => {
+    return useQuery({
+        queryKey: [QUERY_KEYS.FAVORITE, userId],
+        queryFn: () => getFavorite(userId),
+        enabled: !!userId,
+    })
+}
+
+//? remove show from watchlist and favorite query
+export const useRemoveShowFromWatchlist = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (showId: string) => removeShowFromWatchlist(showId),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: [QUERY_KEYS.WATCHLIST],
+            });
+        }
+    })
+}
+export const useRemoveShowFromFavorite = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (showId: string) => removeShowFromFavorite(showId),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: [QUERY_KEYS.FAVORITE],
+            });
+        }
+    })
+}
+
+
 
 //!! TMDB API queries
 // ?Movies API queries

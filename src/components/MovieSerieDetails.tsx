@@ -68,7 +68,7 @@ const MovieSerieDetails = ({ homepage, runTime, title, type, numberOfEpisodes, n
                         <div className="bg-gray-900 p-20 rounded-[8px] border-1 border-border-color">
                             <h4 className="text-18 font-medium text-white ">Cast</h4>
                             <ul className="cast-list mt-16 flex gap-20 overflow-x-auto">
-                                {credits?.cast?.map(({name, profile_path, character }, i) => (
+                                {credits?.cast?.map(({ name, profile_path, character }, i) => (
                                     <li className="shrink-0" key={i}>
                                         <img src={profile_path ? `https://media.themoviedb.org/t/p/original/${profile_path}` : noImage} alt="cast image"
                                             className="rounded-[8px] w-[100px] h-[100px] object-cover" />
@@ -96,33 +96,35 @@ const MovieSerieDetails = ({ homepage, runTime, title, type, numberOfEpisodes, n
                         <div className="bg-gray-900 p-20 rounded-8 border-1 rounded-[8px] border-border-color flex flex-col gap-20">
                             <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                 <FaRegCalendar /> Released Date:
-                                <span className="text-16 font-bold text-primary">{releasedDate}</span>
+                                <span className="text-16 font-bold text-primary">{!releasedDate ? 'N/A' : releasedDate}</span>
                             </h4>
                             {type === 'movie' && (
                                 <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                     <MdOutlineTimer /> Run Time:
-                                    <span className="text-16 font-bold text-primary normal-case">{runTime}min</span>
+                                    <span className="text-16 font-bold text-primary normal-case">{!runTime ? 'N/A' : `${runTime}min`} </span>
                                 </h4>
                             )}
                             {type === 'serie' && (
                                 <>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <MdOutlineLocalMovies /> Seasons:
-                                        <span className="text-16 font-bold text-primary">{numberOfSeasons ||''}</span>
+                                        <span className="text-16 font-bold text-primary">{numberOfSeasons || 'N/A'}</span>
                                     </h4>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <BiMoviePlay /> Episodes:
-                                        <span className="text-16 font-bold text-primary">{numberOfEpisodes || ''}</span>
+                                        <span className="text-16 font-bold text-primary">{numberOfEpisodes || 'N/A'}</span>
                                     </h4>
                                     <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
                                         <MdOutlineTimer />Run Time:
-                                        <span className="text-16 font-bold text-primary normal-case">{episodeRunTime![0]}min</span>
+                                        <span className="text-16 font-bold text-primary normal-case">
+                                            {episodeRunTime && episodeRunTime.length > 0 ? `${episodeRunTime[0]}min` : "N/A"}
+                                        </span>
                                     </h4>
                                 </>
                             )}
                             <div>
                                 <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white">
-                                    <IoLanguageSharp /> Spoken Languages:
+                                    <IoLanguageSharp /> Spoken Languages: {!spokenlanguages && 'N/A'}
                                 </h4>
                                 <ul className="mt-8 flex flex-wrap items-center">
                                     {spokenlanguages?.map(({ english_name }, i) => (
@@ -134,7 +136,7 @@ const MovieSerieDetails = ({ homepage, runTime, title, type, numberOfEpisodes, n
                             </div>
                             <div className="flex flex-wrap items-center gap-8">
                                 <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white ">
-                                    <FaRegStar /> Rating:
+                                    <FaRegStar /> Rating: {!rating && 'N/A'}
                                 </h4>
                                 <StarRating rate={rating} starBoxStyles="flex items-center gap-4" iconStyles="text-18 text-warning-rgb" />
                                 <div className="flex items-center gap-8">
@@ -145,9 +147,9 @@ const MovieSerieDetails = ({ homepage, runTime, title, type, numberOfEpisodes, n
                             </div>
                             <div>
                                 <h4 className="flex capitalize items-center gap-6 text-18 font-medium text-white ">
-                                    <TbCategory /> Genres:
+                                    <TbCategory /> Genres: {!genreIds && 'N/A'}
                                 </h4>
-                                <Genres genreIds={genreIds} type={type} genresBoxStyles="flex flex-wrap w-fit items-center gap-8 mt-8" genreStyles="py-4 px-8 border-1 bg-black rounded-[4px] border-border-color" />
+                                <Genres genreIds={genreIds} type={type} genresBoxStyles="flex flex-wrap w-fit items-center gap-8 mt-8" genreStyles="py-4 px-8 border-1 transition-colors hover:bg-black hover:border-body-color bg-gray-900 rounded-[4px] border-border-color" />
                             </div>
                             {homepage && (
                                 <div>

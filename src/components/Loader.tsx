@@ -1,10 +1,15 @@
-import { loaderIcon } from '../assets'
 
-const Loader = () => {
+type Props = {
+  containerStyles?: string,
+  bigLoader?: boolean,
+  smallLoader?: boolean
+}
+
+const Loader = ({ bigLoader, smallLoader, containerStyles }: Props) => {
   return (
-    <>
-        <img src={loaderIcon} alt="loaderIcon" className="mx-auto animate-spin w-[28px]" />
-    </>
+    <div className={`${containerStyles}`}>
+      <div className={`${bigLoader && 'big-loader'} ${smallLoader && 'small-loader'} loader`}></div>
+    </div>
   )
 }
 

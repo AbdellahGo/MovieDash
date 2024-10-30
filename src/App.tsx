@@ -5,7 +5,7 @@ import SigninForm from "./_auth/forms/SigninForm"
 import RootLayout from "./_root/RootLayout"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AboutUs, ContactUs, FAQ, Home, MovieOrSerieDetails, Movies, Pricing, PrivacyPolicy, Search, Series, TermsOfUse } from "./_root/pages"
+import { AboutUs, ContactUs, FAQ, Home, MovieOrSerieDetails, Movies, Pricing, PrivacyPolicy, Profile, Search, Series, TermsOfUse } from "./_root/pages"
 
 export const App = () => {
 
@@ -23,6 +23,7 @@ export const App = () => {
           <Route index element={<Home/>} />
           <Route path="/movies" element={<Movies/>} />
           <Route path="/search" element={<Search/>} />
+          <Route path="/profile" element={<Profile/>} />
           <Route path="/tv-shows"  element={<Series/>} />
           <Route path="/movie-details/:id"  element={<MovieOrSerieDetails type='movie' />} />
           <Route path="/serie-details/:id"  element={<MovieOrSerieDetails type='serie'/>} />

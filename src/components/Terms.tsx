@@ -1,7 +1,14 @@
-import { containerStyles, sectionStyles } from "../classes";
+import { afterSlideStyles, beforeSlideStyles, containerStyles, sectionStyles } from "../classes";
 import { termOfUseData } from "../constants"
+import { IoArrowBack } from "react-icons/io5";
+import { useUserContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Terms = () => {
+    const navigate = useNavigate()
+    const { isAuthenticated } = useUserContext()
+    const goBackStyles = `w-[180px] h-[45px] relative text-white border-[2px]  p-8 text-16 rounded-[8px] overflow-hidden border-border-color bg-gray-900 hover:border-primary transition-colors ${afterSlideStyles} ${beforeSlideStyles}`
+
     return (
         <div className={`${sectionStyles}`}>
             <div className={`${containerStyles}`}>
@@ -28,6 +35,14 @@ const Terms = () => {
                         </li>
                     ))}
                 </ul>
+                {!isAuthenticated && (
+                    <button className={`block mx-auto ${goBackStyles}`}
+                    onClick={() => navigate(-1)}>
+                        <span className='capitalize text-18 flex justify-center items-center gap-[8px]  relative z-10'>
+                            Go Back <IoArrowBack />
+                        </span>
+                    </button>
+                )}
             </div>
         </div>
     )

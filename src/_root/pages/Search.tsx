@@ -68,14 +68,13 @@ const Search = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [searchParams])
 
-    if (isLoading) return '...loading'
     return (
         <div>
             <SearchForResult
                 handleSelectGenres={handleSelectGenres}
                 handleSelectCategory={handleSelectCategory}
             />
-            <SearchResultGrid searchTerm={searchParams.get('query')!} type={(searchParams.get('show')! as 'movie' | 'serie')} result={searchResult} />
+            <SearchResultGrid loading={isLoading} searchTerm={searchParams.get('query')!} type={(searchParams.get('show')! as 'movie' | 'serie')} result={searchResult} />
             <Paginate handleClickOnPage={handleClickOnPage} pagesList={pagesList} handleNext={handleNext} handlePrev={handlePrev} />
         </div>
     )

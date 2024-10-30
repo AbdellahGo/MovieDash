@@ -63,7 +63,7 @@ const SigninForm = () => {
         <FormButton classes="w-full">
           <span className={`block relative z-[100] text-center`}>
             {isUserLoading ||
-              isCreatingSession ? <Loader/> : 'Sign In'}
+            isCreatingSession ? <Loader smallLoader containerStyles="flex justify-center" /> : 'Sign In'}
           </span>
 
         </FormButton>

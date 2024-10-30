@@ -72,7 +72,7 @@ export const profileSubContainerLinks: { id: number, title: string, link: string
     {
         id: 2,
         title: 'Watchlist',
-        link: '/profile/watchlist'
+        link: '/profile'
     },
     {
         id: 3,

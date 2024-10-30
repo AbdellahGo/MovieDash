@@ -96,7 +96,7 @@ const SignupForm = () => {
         <FormButton classes="lg:w-[50%] w-full mx-auto">
           <span className={`block relative z-[100] text-center`}>
             {isCreatingAccount ||
-              isSingInUser || isUserLoading ? <Loader/> : 'Sing up'}
+              isSingInUser || isUserLoading ? <Loader smallLoader containerStyles="flex justify-center" /> : 'Sing up'}
           </span>
         </FormButton>
       </form>

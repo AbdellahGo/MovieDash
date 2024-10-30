@@ -28,7 +28,7 @@ const SideBar = ({ toggleSideBar, setToggleSideBar }: PropsType) => {
                             <HiXMark />
                         </button>
                     </div>
-                    <SearchBar showButton={false} />
+                    <SearchBar showButton={false} setToggleSideBar={setToggleSideBar}/>
                     <ul className="mt-30 flex flex-col">
                         {navBarLinks.map(({ id, text, link }, i) => (
                             <li key={id}>

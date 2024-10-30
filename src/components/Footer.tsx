@@ -65,8 +65,8 @@ const Footer = () => {
                     </div>
                     <div className="xxl:w-3/12 xl:w-6/12 lg:w-6/12 w-full">
                         <h4 className={`${footerListHeadStyles}`}>Subscribe Newsletter</h4>
-                        <form className="mt-24 mb-16 flex" onSubmit={handleSubmitForm}>
-                            <input required type="email" placeholder="Email*" className="rounded-l-[4px] flex-1 subscribe bg-black transition px-16 py-12 text-14 text-body-color placeholder:text-body-color" />
+                        <form className="mt-24 w-full h-fit mb-16 flex" onSubmit={handleSubmitForm}>
+                            <input required type="email" placeholder="Email*" className="w-full rounded-l-[4px] flex-1 subscribe bg-black transition px-16 py-12 text-14 text-body-color placeholder:text-body-color" />
                             <button className='border-1 overflow-hidden relative block uppercase px-[32px] py-16 rounded-r-[4px] border-primary bg-primary text-white text-14 lading-[16px] font-medium
                                 after:transition-all after:absolute after:rounded-l-[4px] after:h-full after:w-0 after:left-0 after:top-0 after:bg-[#b70710] hover:after:w-[100%]
                                 before:transition-all before:absolute before:rounded-r-[4px] before:h-full before:w-0 before:right-0 before:top-0 before:bg-[#b70710] hover:before:w-[100%]'>
