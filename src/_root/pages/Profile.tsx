@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Favorites, ProfileDetails, Watchlist } from "../../components"
 
 const Profile = () => {
     const [watchlistOrFavorites, setWatchlistOrFavorites] = useState<'watchlist' | 'favorites'>('watchlist')
     const buttonStyles = 'py-8 px-20 text-body-color text-16 hover:text-white transition-colors font-medium relative group'
     const spanStyles = `group-hover:w-full  transition-all absolute h-[4px] bg-primary bottom-0 left-0`
-    
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [])
+
     return (
         <div className="profile-page xl:pb-[100px] md:pb-[50px] pb-30">
             <ProfileDetails />

@@ -31,6 +31,11 @@ const RootLayout = () => {
 
   return (
     <main className="relative">
+      <button
+        onClick={handleClickArrowUp}
+        className={`${showArrowUp ? '-translate-y-[40px]' : 'translate-y-[300px]'} transition-transform fixed z-[999] bg-primary p-8 rounded-full text-20 sm:right-40 right-20 sm:bottom-[80px] bottom-[40px]`}>
+        <IoIosArrowUp />
+      </button>
       {isAuthenticated && (
         <NavBar setNavHeight={setNavHeight} />
       )}
@@ -40,11 +45,6 @@ const RootLayout = () => {
       {isAuthenticated && (
         <Footer />
       )}
-      <button
-        onClick={handleClickArrowUp}
-        className={`${showArrowUp ? '-translate-y-[40px]' : 'translate-y-[300px]'} transition-transform fixed z-[9999999] bg-primary p-8 rounded-full text-20 right-40 bottom-[80px]`}>
-        <IoIosArrowUp />
-      </button>
     </main>
   )
 }

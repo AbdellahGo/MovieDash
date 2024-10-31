@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { Swiper } from "swiper/react"
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import HorizontalSwiperNavigation from "./HorizontalSwiperNavigation";
@@ -18,11 +18,12 @@ const BannerSwiperSlider = ({ nextClasse, prevClasse, swiperStyles, children }: 
       <Swiper className={`${swiperStyles}  h-full`}
         loop={true}
         speed={600}
+        autoplay={{ delay: 2000 }}
         navigation={{
           nextEl: `.${nextClasse}`,
           prevEl: `.${prevClasse}`,
         }}
-        modules={[Navigation]}>
+        modules={[Navigation, Autoplay]}>
         {children}
       </Swiper>
       <HorizontalSwiperNavigation nextClasse={nextClasse}

@@ -63,7 +63,7 @@ const SearchForResult = ({ handleSelectGenres, handleSelectCategory }: Props) =>
     const buttonStyles = 'capitalize border-1 py-12 px-16 rounded-[8px] border-border-color bg-gray-900 hover:bg-black hover:text-white transition-colors text-body-color'
 
     const handleResetFilters = () => {
-        setSearchParams({show: 'movie'}) // reset Search Params
+        setSearchParams({ show: 'movie' }) // reset Search Params
         window.location.reload()
     }
     const handleSubmitForm = (e: FormEvent) => {
@@ -85,55 +85,57 @@ const SearchForResult = ({ handleSelectGenres, handleSelectCategory }: Props) =>
                             <FaSearch />
                         </button>
                     </form>
-                    <div className="flex items-center gap-20">
-                        <Menu closeOnSelect={false}>
-                            <MenuButton as={Button} className={buttonStyles}>
-                                {searchParams.get('show') === 'movie' ? 'Movies' : 'Tv Series'}
-                            </MenuButton>
-                            <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
-                                <MenuOptionGroup defaultValue={searchParams.get('show')!} type='radio'>
-                                    {showTypeValues.map(({ value, label }) => (
-                                        <MenuItemOption value={value} key={value}
-                                            onClick={() => setSearchParams({...Object.fromEntries(searchParams), show:value})}>{label}</MenuItemOption>
-                                    ))}
-                                </MenuOptionGroup>
-                            </MenuList>
-                        </Menu>
-                        <Menu closeOnSelect={false}>
-                            <MenuButton as={Button} className={buttonStyles}>
-                                Categories
-                            </MenuButton>
-                            <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
-                                <MenuOptionGroup defaultValue={searchParams.get('category')!} type='radio'>
-                                    {categoriesValues.map(({ value, label }) => (
-                                        <MenuItemOption value={value} key={value}
-                                            onClick={() => handleSelectCategory(value)}>{label}</MenuItemOption>
-                                    ))}
-                                </MenuOptionGroup>
-                            </MenuList>
-                        </Menu>
-                        <Menu closeOnSelect={false}>
-                            <MenuButton as={Button} className={buttonStyles}>
-                                Genres
-                            </MenuButton>
-                            <MenuList className="menu-list h-[350px] overflow-y-auto bg-gray-900 w-fit py-12 px-16 rounded-[8px] border-1 border-border-color">
-                                <MenuOptionGroup type='checkbox'>
-                                    {GenresValues.map(({ value, label }) => (
-                                        <div key={value}>
-                                            <MenuItemOption
-                                                isChecked={searchParams.get('genres')?.split(',').includes(String(value))}
-                                                value={String(value)}
-                                                onClick={() => handleSelectGenres(value)}>
-                                                {label}
-                                            </MenuItemOption>
-                                        </div>
-                                    ))}
-                                </MenuOptionGroup>
-                            </MenuList>
-                        </Menu>
-                        <button className={` ${buttonStyles} relative  overflow-hidden hover:border-primary transition-colors ${afterSlideStyles} ${beforeSlideStyles}`}
+                    <div className="flex sm:items-center sm:flex-row flex-col gap-20 ">
+                        <div className="grid grid-cols-3 gap-20">
+                            <Menu closeOnSelect={true}>
+                                <MenuButton as={Button} className={buttonStyles}>
+                                    {searchParams.get('show') === 'movie' ? 'Movies' : 'Tv Series'}
+                                </MenuButton>
+                                <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
+                                    <MenuOptionGroup defaultValue={searchParams.get('show')!} type='radio'>
+                                        {showTypeValues.map(({ value, label }) => (
+                                            <MenuItemOption value={value} key={value}
+                                                onClick={() => setSearchParams({ ...Object.fromEntries(searchParams), show: value })}>{label}</MenuItemOption>
+                                        ))}
+                                    </MenuOptionGroup>
+                                </MenuList>
+                            </Menu>
+                            <Menu closeOnSelect={true}>
+                                <MenuButton as={Button} className={buttonStyles}>
+                                    Categories
+                                </MenuButton>
+                                <MenuList className="bg-gray-900 py-12 px-16 rounded-[8px] border-1 border-border-color">
+                                    <MenuOptionGroup defaultValue={searchParams.get('category')!} type='radio'>
+                                        {categoriesValues.map(({ value, label }) => (
+                                            <MenuItemOption value={value} key={value}
+                                                onClick={() => handleSelectCategory(value)}>{label}</MenuItemOption>
+                                        ))}
+                                    </MenuOptionGroup>
+                                </MenuList>
+                            </Menu>
+                            <Menu closeOnSelect={false}>
+                                <MenuButton as={Button} className={buttonStyles}>
+                                    Genres
+                                </MenuButton>
+                                <MenuList className="menu-list h-[350px] overflow-y-auto bg-gray-900 w-fit py-12 px-16 rounded-[8px] border-1 border-border-color">
+                                    <MenuOptionGroup type='checkbox'>
+                                        {GenresValues.map(({ value, label }) => (
+                                            <div key={value}>
+                                                <MenuItemOption
+                                                    isChecked={searchParams.get('genres')?.split(',').includes(String(value))}
+                                                    value={String(value)}
+                                                    onClick={() => handleSelectGenres(value)}>
+                                                    {label}
+                                                </MenuItemOption>
+                                            </div>
+                                        ))}
+                                    </MenuOptionGroup>
+                                </MenuList>
+                            </Menu>
+                        </div>
+                        <button className={`Msm:w-full ${buttonStyles} relative  z-[-1] overflow-hidden hover:border-primary transition-colors ${afterSlideStyles} ${beforeSlideStyles}`}
                             onClick={handleResetFilters}>
-                            <span className={`flex items-center gap-[8px] relative z-10`}>Reset <RxReset /> </span>
+                            <span className={`flex justify-center items-center gap-[8px] relative z-10`}>Reset <RxReset /> </span>
                         </button>
                     </div>
                 </div>

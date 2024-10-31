@@ -14,9 +14,9 @@ type PropsType = {
 const SideBar = ({ toggleSideBar, setToggleSideBar }: PropsType) => {
 
     return (
-        <div className={`fixed top-0 left-0 z-[10000] w-screen h-screen bg-[#00000080] cursor-pointer overflow-y-scroll ${toggleSideBar ? 'visible' : 'invisible'}`}
+        <div className={`fixed top-0 left-0 z-[999999] w-screen h-screen bg-[#00000080] cursor-pointer overflow-y-scroll ${toggleSideBar ? 'visible' : 'invisible'}`}
             onClick={() => setToggleSideBar(false)}>
-            <div className={`flex flex-col justify-between bg-gray-900 max-w-[400px] min-h-full cursor-default border-r-[1px] border-border-color transition ${toggleSideBar ? 'translate-x-0 opacity-100' : 'translate-x-[-100%] opacity-0'}`}
+            <div className={`flex flex-col justify-between bg-gray-900 sm:max-w-[400px] w-full min-h-full cursor-default border-r-[1px] border-border-color transition ${toggleSideBar ? 'translate-x-0 opacity-100' : 'translate-x-[-100%] opacity-0'}`}
                 onClick={(e) => e.stopPropagation()}>
                 <div className="px-16">
                     <div className="pt-16 pb-30 mb-30 flex justify-between items-center border-b-1 border-border-color">

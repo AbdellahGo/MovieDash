@@ -42,6 +42,7 @@ const Search = () => {
         }
         setPage(pageNumbar)
         setPagesList(prev => [...prev].slice(0, pageNumbar))
+        window.scrollTo({top: 0, behavior: 'smooth'})
     }
 
     const handlePrev = () => {
@@ -52,6 +53,7 @@ const Search = () => {
         } else {
             setPage(prev => prev - 1)
             setPagesList(prev => [...prev].slice(0, page - 1))
+            window.scrollTo({top: 0, behavior: 'smooth'})
         }
     }
     const handleNext = () => {
@@ -60,6 +62,8 @@ const Search = () => {
         } else {
             setPage(prev => prev + 1)
             setPagesList(prev => [...prev, page + 1])
+        window.scrollTo({top: 0, behavior: 'smooth'})
+
         }
     }
 
