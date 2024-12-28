@@ -43,7 +43,6 @@ const SignupForm = () => {
         toast.warn("Sign up failed. Please try again.")
         return;
       }
-      console.log(newUser);
 
       const session = await signInAccount({
         email: user.email,
